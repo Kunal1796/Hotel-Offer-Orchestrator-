@@ -2,13 +2,17 @@
 
 An Express/TypeScript API that uses Temporal to call two hotel suppliers in parallel, choose the cheapest offer per hotel name, and persist the winners in Redis. Price range filtering runs inside Redis; the API returns a plain JSON array.
 
+**Live website:** https://api-production-3801.up.railway.app/
+
+The live website runs the full API, worker, Temporal, and Redis stack on Railway. It uses the assignment's mock supplier endpoints. Hosting currently depends on the account's available trial allowance; it is not a promise of permanently free hosting.
+
 ## Landing page preview
 
-Public landing-page demo: https://kunal1796.github.io/Hotel-Offer-Orchestrator-/
+The original landing-page link, https://kunal1796.github.io/Hotel-Offer-Orchestrator-/, now forwards to the live Railway website.
 
 Run `npm ci` and `npm run preview`, then open http://localhost:3000. This frontend-only mode uses visibly labeled sample offers and does not need Docker. Stop it before starting the full stack on the same port.
 
-When the full Express API runs, the same landing page at `/` automatically uses real API calls through Temporal and Redis. GitHub Pages publishes the labeled sample-data landing page separately; it does not host the backend.
+When the full Express API runs, the same landing page at `/` automatically uses real API calls through Temporal and Redis. GitHub Pages publishes only the forwarding page from `hosted/`; it does not host the backend. `npm run preview` remains an explicitly labeled local sample-data preview.
 
 ## Run with Docker Compose
 
