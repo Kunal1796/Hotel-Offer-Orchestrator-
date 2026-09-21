@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare hotel offers from two suppliers and find the lowest price for every stay. Explore the Hotel Offer Orchestrator project.">
+  <meta name="theme-color" content="#112b35">
+  <title>Hotel Offer Orchestrator — A better offer for every stay</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23112b35'/%3E%3Cpath d='M19 17v30m26-30v30M19 32h26' stroke='%23d5f57b' stroke-width='7'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./site-config.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="header wrap">
+    <a class="brand" href="./" aria-label="Hotel Offer Orchestrator home"><span class="brand-icon">h.</span><span>Hotel Offer<br><strong>Orchestrator</strong></span></a>
+    <nav aria-label="Main navigation"><a href="#explore">Explore offers</a><a href="https://github.com/Kunal1796/Hotel-Offer-Orchestrator-" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">TWO SUPPLIERS. ONE SMARTER SEARCH.</p>
+        <h1>Same stay.<br><span>Better offer.</span></h1>
+        <p class="intro">Find the lowest price for every hotel. We compare overlapping offers so you don’t have to.</p>
+        <a class="primary hero-link" href="#explore">Explore hotel offers <span aria-hidden="true">↓</span></a>
+        <div class="hero-note"><span>01 / COMPARE</span><span>02 / DEDUPLICATE</span><span>03 / SAVE</span></div>
+      </div>
+      <div class="comparison" aria-label="Example: Holtin costs 6000 rupees from Supplier A and 5340 rupees from Supplier B">
+        <div class="comparison-top"><span>THE SAME HOTEL, COMPARED</span><span>DELHI / IN</span></div>
+        <div class="hotel-heading"><span class="hotel-monogram" aria-hidden="true">H</span><div><p>FEATURED COMPARISON</p><h2>Holtin</h2><span>Delhi, India · Mock supplier offer</span></div></div>
+        <div class="comparison-row"><span>Supplier A</span><span class="old-price">₹6,000</span></div>
+        <div class="comparison-row winner"><div><span class="best-tag">LOWEST PRICE</span><strong>Supplier B</strong></div><strong>₹5,340</strong></div>
+        <div class="saving"><span>Same hotel. Less to pay.</span><strong>₹660 saved</strong></div>
+        <p class="example-label">Illustrative comparison from the project's mock data.</p>
+      </div>
+    </section>
+
+    <section id="explore" class="explore">
+      <div class="wrap">
+        <div class="section-heading"><div><p class="eyebrow">YOUR NEXT STAY</p><h2>Find your best offer.</h2></div><span id="mode-badge" class="mode-badge">Interactive preview</span></div>
+        <p id="mode-description" class="mode-description">You’re exploring sample offers. This preview is not connected to the live Temporal and Redis backend.</p>
+        <form id="search-form" class="search-form">
+          <div class="field city-field"><label for="city">City</label><input id="city" name="city" value="delhi" list="cities" placeholder="Enter a city" maxlength="100" required><datalist id="cities"><option value="delhi"><option value="mumbai"></datalist></div>
+          <div class="field"><label for="min-price">Min. price (₹)</label><input id="min-price" name="minPrice" type="number" min="0" step="0.01" placeholder="No minimum"></div>
+          <div class="field"><label for="max-price">Max. price (₹)</label><input id="max-price" name="maxPrice" type="number" min="0" step="0.01" placeholder="No maximum"></div>
+          <button id="search-button" class="primary" type="submit">Explore offers <span aria-hidden="true">↗</span></button>
+        </form>
+        <div class="results-heading"><p id="result-summary" role="status" aria-live="polite">Sample offers in Delhi</p><span>Lowest price first</span></div>
+        <p id="error-message" class="error" role="alert" hidden></p>
+        <div id="results" class="results" aria-busy="false"></div>
+        <noscript><p>Enable JavaScript to explore offers. You can still view the source code and setup instructions on GitHub.</p></noscript>
+      </div>
+    </section>
+
+    <section class="how wrap">
+      <div><p class="eyebrow">BEHIND THE SEARCH</p><h2>A clear path<br>to the best price.</h2><p>Built with Node.js, Express, Temporal, and Redis.</p></div>
+      <ol class="steps"><li><span>01</span><div><h3>Compare in parallel</h3><p>Temporal coordinates requests to both mock suppliers at the same time.</p></div></li><li><span>02</span><div><h3>Keep the lowest offer</h3><p>Matching hotel names become one result, with the winning supplier’s price and commission.</p></div></li><li><span>03</span><div><h3>Filter at the source</h3><p>The backend stores all winners in Redis and applies your price range directly there.</p></div></li></ol>
+    </section>
+  </main>
+
+  <footer class="wrap footer"><div><strong>Hotel Offer Orchestrator</strong><p>A hotel comparison project with mock supplier data.</p></div><div><a href="https://github.com/Kunal1796/Hotel-Offer-Orchestrator-#run-with-docker-compose">Setup guide ↗</a><a href="https://github.com/Kunal1796/Hotel-Offer-Orchestrator-/tree/main/postman">Postman collection ↗</a></div></footer>
+  <template id="offer-template"><article class="offer-card"><div class="offer-top"><span class="offer-icon" aria-hidden="true"></span><span class="offer-supplier"></span></div><h3 class="offer-name"></h3><p class="offer-city"></p><div class="offer-bottom"><div><span class="price-label">Best available offer</span><strong class="offer-price"></strong></div><span class="commission"></span></div></article></template>
+</body>
+</html>

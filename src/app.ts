@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import path from 'node:path';
 import express from 'express';
 import { hotelQuerySchema } from './validation';
 import { supplierA, supplierB } from './suppliers';
@@ -16,6 +17,10 @@ export function createApp(deps: AppDependencies) {
   const app = express();
   app.disable('x-powered-by');
   app.set('query parser', 'simple');
+  app.get('/site-config.js', (_req, res) => {
+    res.type('application/javascript').set('Cache-Control', 'no-store').send('window.HOTEL_APP_MODE = "live";');
+  });
+  app.use(express.static(path.resolve(__dirname, '../public')));
   app.get('/api/hotels', async (req, res) => {
     const requestId = randomUUID();
     res.setHeader('X-Request-Id', requestId);

@@ -2,6 +2,14 @@
 
 An Express/TypeScript API that uses Temporal to call two hotel suppliers in parallel, choose the cheapest offer per hotel name, and persist the winners in Redis. Price range filtering runs inside Redis; the API returns a plain JSON array.
 
+## Landing page preview
+
+Public landing-page demo: https://kunal1796.github.io/Hotel-Offer-Orchestrator-/
+
+Run `npm ci` and `npm run preview`, then open http://localhost:3000. This frontend-only mode uses visibly labeled sample offers and does not need Docker. Stop it before starting the full stack on the same port.
+
+When the full Express API runs, the same landing page at `/` automatically uses real API calls through Temporal and Redis. GitHub Pages publishes the labeled sample-data landing page separately; it does not host the backend.
+
 ## Run with Docker Compose
 
 Requirements: Docker Engine with Compose v2 (or Docker Desktop), Git, and available ports 3000, 6379, 7233, and 8233.
