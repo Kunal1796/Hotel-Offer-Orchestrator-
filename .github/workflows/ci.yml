@@ -16,6 +16,7 @@ jobs:
       - run: npm run check
       - run: docker compose up --build --wait --wait-timeout 180
       - run: npm run test:integration
+      - run: npm run test:deployment -- http://localhost:3000
       - name: Verify supplier failure handling
         run: |
           SUPPLIER_B_DOWN=true docker compose up -d --no-deps api

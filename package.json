@@ -10,6 +10,7 @@
     "dev": "tsx watch src/server.ts",
     "dev:worker": "tsx watch src/worker.ts",
     "preview": "tsx src/preview.ts",
+    "test:deployment": "node scripts/check-deployment.mjs",
     "test": "vitest run",
     "test:integration": "vitest run --config vitest.integration.config.ts",
     "check": "npm run build && npm test"

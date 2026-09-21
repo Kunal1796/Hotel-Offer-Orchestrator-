@@ -102,6 +102,8 @@ Run the collection's optional outage folder after setting its `runOutageTests` v
 
 ## Deployment scope
 
+For the full hosted application (not the GitHub Pages preview), see [Railway deployment](docs/railway-deployment.md). It specifies the four services, private connections, public website, and a deployment verification command.
+
 The included Compose deployment is intended for local evaluation or a private demo server. It uses Temporal's development server with persisted SQLite, following the [official Temporal example](https://github.com/temporalio/samples-server/blob/main/compose/docker-compose-dev.yml), and binds exposed ports to localhost. On a Docker-enabled remote host, clone this repository and run the same Compose command; use an SSH tunnel (`ssh -L 3000:localhost:3000 -L 8233:localhost:8233 user@host`) to access it privately.
 
 For a public production service, use Temporal Cloud or a supported production Temporal cluster, authenticated Redis, TLS/reverse proxy and authentication for the API, secrets management, and pinned image digests. The Temporal CLI image follows the official example's `latest` tag; pin a tested version/digest for reproducible deployments. No cloud account or hosting target is provisioned by this repository.
