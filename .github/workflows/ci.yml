@@ -1,0 +1,29 @@
+name: Verify
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: docker compose up --build --wait --wait-timeout 180
+      - run: npm run test:integration
+      - name: Verify supplier failure handling
+        run: |
+          SUPPLIER_B_DOWN=true docker compose up -d --no-deps api
+          sleep 5
+          test "$(curl -s -o /tmp/health.json -w '%{http_code}' http://localhost:3000/health)" = 503
+          node -e "const h=require('/tmp/health.json'); if(h.suppliers.supplierB!=='down') process.exit(1)"
+          test "$(curl --max-time 60 -s -o /tmp/search.json -w '%{http_code}' 'http://localhost:3000/api/hotels?city=delhi')" = 503
+      - if: always()
+        run: docker compose logs --no-color
+      - if: always()
+        run: docker compose down -v
